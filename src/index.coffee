@@ -1,6 +1,7 @@
 handlebars = require 'handlebars'
 umd = require 'umd-wrapper'
 sysPath = require 'path'
+htmlMinifier = require 'html-minifier'
 
 module.exports = class HandlebarsCompiler
   brunchPlugin: yes
@@ -13,11 +14,20 @@ module.exports = class HandlebarsCompiler
 
   compile: (data, path, callback) ->
     try
+      data = @compress data
       result = umd "Handlebars.template(#{handlebars.precompile data})"
     catch err
       error = err
     finally
       callback error, result
+
+  compress: (data) ->
+    htmlMinifier.minify data,
+      removeComments: true
+      removeCommentsFromCDATA: true
+      removeCDATASectionsFromCDATA: true
+      collapseWhitespace: true
+      collapseBooleanAttributes: true
 
   include: [
     (sysPath.join __dirname, '..', 'vendor',

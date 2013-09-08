@@ -15,7 +15,8 @@
   },
   "dependencies": {
     "handlebars": "1.0.12",
-    "umd-wrapper": "~0.1.0"
+    "umd-wrapper": "~0.1.0",
+    "html-minifier": "~0.5.4"
   },
   "devDependencies": {
     "mocha": "1.11.0",
